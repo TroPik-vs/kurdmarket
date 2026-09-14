@@ -1,0 +1,1 @@
+<?php include 'header.php'; ?><div class="success"><h1>سوپاس! 🎉</h1><p>داواکارییەکەت بە سەرکەوتوویی تۆمارکرا.</p><a class="btn" href="index.php">گەڕانەوە بۆ سەرەکی</a></div><?php include 'footer.php'; ?>

@@ -1,0 +1,6 @@
+<?php include 'header.php';
+$cart=$_SESSION['cart']??[];$items=[];$total=0;
+if($cart){$ids=array_keys($cart);$marks=implode(',',array_fill(0,count($ids),'?'));$s=$pdo->prepare("SELECT * FROM products WHERE id IN ($marks)");$s->execute($ids);foreach($s as $p){$p['quantity']=$cart[$p['id']];$p['subtotal']=$p['quantity']*$p['price'];$total+=$p['subtotal'];$items[]=$p;}}
+?>
+<h1>🛒 سەبەتەی کڕین</h1>
+<?php if($items): ?><table><tr><th>کاڵا</th><th>بڕ</th><th>نرخ</th><th>کۆی گشتی</th><th></th></tr><?php foreach($items as $p):?><tr><td><?=htmlspecialchars($p['name'])?></td><td><?=$p['quantity']?></td><td><?=number_format($p['price'],2)?> $</td><td><?=number_format($p['subtotal'],2)?> $</td><td><a href="remove_cart.php?id=<?=$p['id']?>">سڕینەوە</a></td></tr><?php endforeach;?></table><h2>کۆی گشتی: <?=number_format($total,2)?> $</h2><a class="btn" href="checkout.php">تەواوکردنی کڕین</a><?php else:?><p class="empty">سەبەتەکەت بەتاڵە.</p><a class="btn" href="products.php">چوون بۆ کاڵاکان</a><?php endif; include 'footer.php'; ?>

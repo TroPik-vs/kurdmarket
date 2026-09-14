@@ -1,0 +1,5 @@
+<?php include 'header.php';
+$id=(int)($_GET['id']??0);$stmt=$pdo->prepare("SELECT p.*,c.name category FROM products p JOIN categories c ON c.id=p.category_id WHERE p.id=?");$stmt->execute([$id]);$p=$stmt->fetch(); if(!$p){echo '<p>کاڵا نەدۆزرایەوە.</p>';include 'footer.php';exit;}
+?>
+<div class="product-detail"><img src="<?=htmlspecialchars($p['image'])?>" alt=""><div><small><?=htmlspecialchars($p['category'])?></small><h1><?=htmlspecialchars($p['name'])?></h1><p><?=nl2br(htmlspecialchars($p['description']))?></p><h2><?=number_format($p['price'],2)?> $</h2><form action="add_cart.php" method="post"><input type="hidden" name="id" value="<?=$p['id']?>"><input type="number" name="quantity" value="1" min="1"><button class="btn">زیادکردن بۆ سەبەتە 🛒</button></form></div></div>
+<?php include 'footer.php'; ?>
